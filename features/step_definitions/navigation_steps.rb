@@ -1,5 +1,5 @@
-# Given I am on the "OnLine Store Receipt" page
-Given('I am on the {string} page') do |receiptPage|
+# Given I am on the OnLine Store Receipt page
+Given('I am on the OnLine Store Receipt page') do
     page.driver.browser.manage.window.maximize
     visit('https://demo.borland.com/gmopost/cgi-bin/perl.exe?confirm-order.pl')
   end
@@ -11,7 +11,6 @@ Given('I am on the {string} page') do |receiptPage|
   
   # Then I should be redirected to the home page
   Then('I should be redirected to the home page') do
-    # Verifica que la URL actual sea la de la página principal
     expect(page.current_url).to eq(Capybara.app_host)
   end
   

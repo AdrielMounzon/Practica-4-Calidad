@@ -4,6 +4,6 @@ Feature: Validate the return to home page
   So that I can make another order
 
   Scenario: Return to home page after placing an order
-    Given I am on the "OnLine Store Receipt" page
+    Given I am on the OnLine Store Receipt page
     When I click the "Return to Home Page" button
     Then I should be redirected to the home page

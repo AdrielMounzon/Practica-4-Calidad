@@ -4,7 +4,7 @@ Feature: Validate product details
   So that I can get more information about the product and the available amount on the store
 
   Scenario: Validate product details from a single product
-    Given I am on the "Products" page
+    Given I am on the Products page
     When I scroll to the "Padded Socks" section
     Then the product name should be shown
     And the slogan should be shown
