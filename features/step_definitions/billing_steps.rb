@@ -48,3 +48,13 @@ When('I check the Same as "Bill to" option') do
 end
 
 # Then the "OnLine Store Receipt" page should show all the information I provided
+Then('the "OnLine Store Receipt" page should show all the information I provided') do
+    expect(page).to have_content('Thank you for shopping with Green Mountain Outpost')
+  end
+
+# Then a popup window should be displayed with the text "This is a required field."
+Then('a popup window should be displayed with the text {string}') do |expected_text|
+    alert_text = page.accept_alert
+    expect(alert_text).to eq(expected_text)
+  end
+  
