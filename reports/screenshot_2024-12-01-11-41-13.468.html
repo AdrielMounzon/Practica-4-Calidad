@@ -1,0 +1,433 @@
+<html><head>
+    <title>Billing Information</title>
+    <script language="JavaScript">
+    function CopyBill2Ship (choice)
+    {
+        if (choice == true)
+        {
+            document.Info.shipName.value = document.Info.billName.value
+            document.Info.shipAddress.value = document.Info.billAddress.value
+            document.Info.shipCity.value = document.Info.billCity.value
+            document.Info.shipState.value = document.Info.billState.value
+            document.Info.shipZipCode.value = document.Info.billZipCode.value
+            document.Info.shipPhone.value = document.Info.billPhone.value
+        }
+        else
+        {
+            document.Info.shipName.value = ""
+            document.Info.shipAddress.value = ""
+            document.Info.shipCity.value = ""
+            document.Info.shipState.value = ""
+            document.Info.shipZipCode.value = ""
+            document.Info.shipPhone.value = ""
+        }
+    }
+    
+	function RemoveChars (sString, sRemove)
+	{
+		var sCleaned = "";
+		var bRemove = false;
+		for (i=0; i<sString.length; i++) {
+			ch = sString.charAt(i);
+			bRemove = false;
+			for (j=0; j<sRemove.length; j++) {
+				if (ch == sRemove.charAt(j)) {
+					bRemove = true;
+				}
+			}
+			if (bRemove == false) {
+				sCleaned = sCleaned + ch;
+			}
+		}
+		return (sCleaned);
+	}
+
+	function Check_Contents(elem, sValidChars)
+	{
+		var checkOK = sValidChars;
+		var checkStr = elem.value;
+		var allValid = true;
+
+		for (i=0; i<checkStr.length; i++) {
+			ch = checkStr.charAt(i);
+			for (j=0; j<checkOK.length; j++) {
+				if (ch == checkOK.charAt(j))
+					break;
+				}
+			if (j == checkOK.length) {
+				allValid = false;
+				break;
+			}
+		}
+		return (allValid);
+	}
+
+	function Check_NotEmpty(elem)
+	{
+		var sText = new String;
+		sText = elem.value;
+		if (sText.length == 0) {
+			alert ("This is a required field.");
+			elem.focus();
+			elem.select();
+			return (false);
+		}
+		else
+			return (true);
+	}
+
+	function Check_OnlyDigits(elem)
+	{
+		var checkOK = "0123456789";
+		if (Check_Contents (elem, checkOK) == false) {
+			elem.focus();
+			elem.select();
+			return (false);
+		}
+		return (true);
+	}
+	function Check_OnlyChars(elem)
+	{
+		var checkOK = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ,'";
+		if (Check_Contents (elem, checkOK) == false) {
+			elem.focus();
+			elem.select();
+			return (false);
+		}
+		return (true);
+	}
+	function Check_OnlyAlphaNumeric(elem)
+	{
+		var checkOK = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ,'.-/";
+		if (Check_Contents (elem, checkOK) == false) {
+			elem.focus();
+			elem.select();
+			return (false);
+		}
+		return (true);
+	}
+
+	function Check_PhoneNumber(elem)
+	{
+		var checkOK = "0123456789().-";
+ 		var Remove = "().-";
+		var allValid = true;
+		var sClean = new String;
+
+		if (Check_Contents (elem, checkOK) == true) {
+			sClean = (RemoveChars (elem.value, Remove));
+			if (sClean.length != 10) {
+				alert ("Please enter a valid phone number in this field.");
+				elem.focus();
+				elem.select();
+				return (false);
+			}
+			else {
+				elem.value = sClean.substring(0, 3) + "-" + sClean.substring(3, 6) + "-" + sClean.substring(6, 10);
+			}
+		}
+		else {
+			alert ("Please enter a valid phone number in this field.");
+			elem.focus();
+			elem.select();
+			return (false);
+		}
+		return (true);
+	}
+
+	function Check_ZipCode(elem)
+	{
+		var sText = new String;
+		sText = elem.value;
+		if (sText.length == 5){
+			if (Check_OnlyDigits(elem) == false) {
+				alert ("Please enter a valid zip code in this field.");
+				elem.focus();
+				elem.select();
+				return (false);
+			}
+		}
+		else {
+			alert ("Please enter a valid zip code in this field.");
+			elem.focus();
+			elem.select();
+			return (false);
+		}
+		return (true);
+	}
+
+	function Check_CardNumber(elem, type)
+	{
+		var iLen;
+		var checkOK = "0123456789-";
+		var Remove = "-";
+		var allValid = true;
+		var sClean = new String;
+		
+		if (type.toUpperCase() == "AMEX" || type.toUpperCase() == "AMERICAN EXPRESS") 
+			iLen = 15;
+		else
+			iLen = 16;
+
+
+		if (Check_Contents (elem, checkOK) == true) {
+			sClean = (RemoveChars (elem.value, Remove));
+			if (sClean.length != iLen) {
+				if (iLen == 15) {
+					alert ("Please enter a valid card number of the form '1234-123456-12345' in this field.");
+					elem.focus();
+					elem.select();
+					return (false);
+				}
+				else {
+					alert ("Please enter a valid card number of the form '1234-1234-1234-1234' in this field.");
+					elem.focus();
+					elem.select();
+					return (false);
+				}
+			}
+		}
+		else {
+			if (iLen == 15) {
+				alert ("Please enter a valid card number of the form '1234-123456-12345' in this field.");
+				elem.focus();
+				elem.select();
+				return (false);
+			}
+			else {
+				alert ("Please enter a valid card number of the form '1234-1234-1234-1234' in this field.");
+				elem.focus();
+				elem.select();
+				return (false);
+			}
+		}
+		return (true);
+	}
+
+	function Check_MMYY(elem)
+	{
+		var checkOK = "0123456789/";
+		var Remove = "/";
+		var allValid = true;
+		var sClean = new String;
+		
+		var Today = new Date;
+		var Month = Today.getMonth();
+//		var Year = Today.getYear();
+//            Year = Year - 100;
+            var Year = Today.getFullYear().toString().slice(2);
+
+		if (Check_Contents (elem, checkOK) == true) {
+			sClean = (RemoveChars (elem.value, Remove));
+			if (sClean.length == 3) {
+				// pad leading zero if omitted
+				sClean = "0" + sClean;
+			}
+			if (sClean.length != 4) {
+				alert ("Please enter a valid date of the form 'MM/YY' in this field.");
+				elem.focus();
+				elem.select();
+				return (false);
+			}
+			if (sClean.substring(0,2) <= 12 && sClean.substring(0,2) > 0) {
+				if (sClean.substring(2,4) == Year) {
+					if (sClean.substring(0,2) < Month) {
+						alert ("Please enter a valid date of the form 'MM/YY' in this field.");
+						elem.focus();
+						elem.select();
+						return (false);
+					}
+				}
+				if (sClean.substring(2,4) < Year) {
+					//check for early year 2000 entries
+					//if (sClean.substring(2,4) > 10) {
+						alert ("Please enter a valid date of the form 'MM/YY' in this field.");
+						elem.focus();
+						elem.select();
+						return (false);
+					//}
+				}
+			}
+			else {
+				alert ("Please enter a valid date of the form 'MM/YY' in this field.");
+				elem.focus();
+				elem.select();
+				return (false);
+			}			
+		}
+		else {
+			alert ("Please enter a valid date of the form 'MM/YY' in this field.");
+			elem.focus();
+			elem.select();
+			return (false);
+		}
+		return (true);
+	}
+
+	function Validate_Form() 
+	{
+		// Names, Addresses, Cities, States
+		if (Check_NotEmpty (document.Info.billName) == false) return(false);
+		if (Check_NotEmpty (document.Info.shipName) == false) return(false);
+		if (Check_NotEmpty (document.Info.billAddress) == false) return(false);
+		if (Check_NotEmpty (document.Info.shipAddress) == false) return(false);
+		if (Check_NotEmpty (document.Info.billCity) == false) return(false);
+		if (Check_NotEmpty (document.Info.shipCity) == false) return(false);
+		if (Check_NotEmpty (document.Info.billState) == false) return(false);
+		if (Check_NotEmpty (document.Info.shipState) == false) return(false);
+
+		// Zip Code
+		if (Check_ZipCode (document.Info.billZipCode) == false) return(false);
+		if (Check_ZipCode (document.Info.shipZipCode) == false) return(false);
+		
+		// Phone Number
+		if (Check_PhoneNumber (document.Info.billPhone) == false) return(false);
+		if (Check_PhoneNumber (document.Info.shipPhone) == false) return(false);
+
+		// Card Number
+		SelectedCard = document.Info.CardType.selectedIndex;
+		if (Check_CardNumber (document.Info.CardNumber, document.Info.CardType.options[SelectedCard].text) == false) return(false);
+
+		// Card Expiration Date
+		if (Check_MMYY (document.Info.CardDate) == false) return(false);
+		
+		
+		return (true);
+	}
+
+    </script>
+    </head>
+    <!-- include standard body styles from "_private/gmo_style.htm" -->
+    <body background="../images/Gray_Dotted83B3.gif" bgcolor="#FFFFFF">
+    <!-- include standard header (from "_private/header.htm") -->
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tbody><tr>
+            <td align="center"><h1>Billing Information</h1>
+            </td>
+            <td align="right" valign="top"><img src="../images/gmo-animate.gif" alt="Logo" align="top" width="250" height="90">
+            </td>
+        </tr>
+    </tbody></table>
+    <hr size="4" color="#008000">
+    <form action="perl.exe?confirm-order.pl" method="POST" name="Info" onsubmit="return Validate_Form();">
+    <p align="center">Please fill in this form. Your credit card will not be billed until your order is shipped.</p>
+    <table border="0" cellpadding="4" cellspacing="0" width="95%">
+        <tbody><tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td valign="top"><table border="0" cellpadding="0" cellspacing="0">
+                <tbody><tr>
+                    <td align="right" nowrap=""><font size="4"><strong>Bill
+                    To: </strong></font></td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td align="right" nowrap="">Name </td>
+                    <td><input type="text" size="22" name="billName"> </td>
+                </tr>
+                <tr>
+                    <td align="right" nowrap="">Address </td>
+                    <td><input type="text" size="22" name="billAddress"> </td>
+                </tr>
+                <tr>
+                    <td align="right" nowrap="">City </td>
+                    <td><input type="text" size="22" name="billCity"> </td>
+                </tr>
+                <tr>
+                    <td align="right" nowrap="">State </td>
+                    <td valign="top"><input type="text" size="22" name="billState"> </td>
+                </tr>
+                <tr>
+                    <td align="right" nowrap="">Zip </td>
+                    <td><input type="text" size="22" name="billZipCode"> </td>
+                </tr>
+                <tr>
+                    <td align="right" nowrap="">Phone </td>
+                    <td><input type="text" size="22" name="billPhone"> </td>
+                </tr>
+                <tr>
+                    <td align="right" nowrap="">E-mail </td>
+                    <td><input type="text" size="22" name="billEmail"> </td>
+                </tr>
+                <tr>
+                    <td nowrap="">&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td align="right" nowrap="">Credit Card </td>
+                    <td><select name="CardType" size="1">
+                        <option value="AMEX"> American Express </option>
+                        <option value="MasterCard"> MasterCard </option>
+                        <option value="Visa"> Visa </option>
+                    </select> </td>
+                </tr>
+                <tr>
+                    <td align="right" nowrap="">Card Number </td>
+                    <td><input type="text" size="20" name="CardNumber"> </td>
+                </tr>
+                <tr>
+                    <td align="right" nowrap="">Expiration </td>
+                    <td><input type="text" size="10" name="CardDate"> </td>
+                </tr>
+            </tbody></table>
+            </td>
+            <td>&nbsp;</td>
+            <td valign="top"><table border="0" cellpadding="0" cellspacing="0">
+                <tbody><tr>
+                    <td align="right" nowrap=""><font size="4"><strong>Ship
+                    To: </strong></font></td>
+                    <td><input type="checkbox" name="shipSameAsBill" value="OFF" language="JavaScript" onclick="CopyBill2Ship(this.checked)"> Same
+                    as <em>"</em><em><strong>Bill To</strong></em><em>"</em></td>
+                </tr>
+                <tr>
+                    <td align="right" nowrap="">Name </td>
+                    <td><input type="text" size="22" name="shipName"> </td>
+                </tr>
+                <tr>
+                    <td align="right" nowrap="">Address </td>
+                    <td><input type="text" size="22" name="shipAddress"> </td>
+                </tr>
+                <tr>
+                    <td align="right" nowrap="">City </td>
+                    <td><input type="text" size="22" name="shipCity"> </td>
+                </tr>
+                <tr>
+                    <td align="right" nowrap="">State </td>
+                    <td><input type="text" size="22" name="shipState"> </td>
+                </tr>
+                <tr>
+                    <td align="right" nowrap="">Zip </td>
+                    <td valign="top"><input type="text" size="22" name="shipZipCode"> </td>
+                </tr>
+                <tr>
+                    <td align="right" nowrap="">Phone </td>
+                    <td><input type="text" size="22" name="shipPhone"> </td>
+                </tr>
+                <tr>
+                    <td nowrap="">&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </tbody></table>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td align="center"><input type="submit" name="bSubmit" value="Place The Order"></td>
+            <td>&nbsp;</td>
+        </tr>
+    </tbody></table>
+</form>    <hr size="4" color="#008000">
+    <p><font color="#800000" size="1"><strong>This is a sample web site for demonstration purposes only!<br>No products will be sent to you.</strong></font>&nbsp;</p>
+    <p><font size="1"><strong>Copyright ¨  1997 Segue Software, Inc. All rights reserved.</strong><br>
+    Information in this document is subject to change without notice.<br>
+    Other products and companies referred to herein are trademarks <br>
+    or registered trademarks of their respective companies or trademark holders.<br>
+	</font></p><p><font size="1"><a href="mailto:gmo-master@segue.com"><font size="2"><em>Please let us know how you like our site.</em></font></a></font></p><font size="1">
+    <br>
+</font></body></html>
