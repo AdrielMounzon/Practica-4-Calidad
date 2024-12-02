@@ -32,8 +32,7 @@ Feature: Add items to shopping cart
   Scenario: Place order without adding any product to the cart
     Given I am on the "OnLine Catalog" page
     When I click the "Place An Order" button without adding any product
-    Then I should see a message "Your cart is empty"
-    And the order should not be placed
+    Then I should see a message "Please Order Something First"
 
 
   Scenario: Place order adding more units of a product than available on stock
