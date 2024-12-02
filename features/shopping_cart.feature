@@ -38,8 +38,8 @@ Feature: Add items to shopping cart
   Scenario: Place order adding more units of a product than available on stock
     Given I am on the "OnLine Catalog" page
     And I click on the "Padded Socks" item on the item name column
-    And the product "Padded Socks" has 5 units in stock
-    When I write "10" on the order quantity of "Padded Socks"
+    And the product "Padded Socks" has 47 units in stock
+    When I write "50" on the order quantity of "Padded Socks"
     And I click the "Place An Order" button
     Then I should see a message "Insufficient stock for Padded Socks"
     And the order should not be placed
@@ -47,7 +47,7 @@ Feature: Add items to shopping cart
   Scenario: Add items to shopping cart and reset the form
     Given I am on the "OnLine Catalog" page
     And I write "2" on the order quantity of "Hiking Boots"
-    And I click the "Add to Cart" button
-    When I click the "Reset" button
+    And I click the "Place An Order" button
+    When I click the "Reset Form" button
     Then the shopping cart should be empty
     And the order form should be cleared
