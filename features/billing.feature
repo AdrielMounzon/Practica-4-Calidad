@@ -90,3 +90,18 @@ Feature: Fill in personal information
     Then a popup window should be displayed with the text "Please enter a valid card number of the form '1234-123456-12345' in this field."
 
   Scenario: Enter an expirated credit card
+    Given I am on the "Billing Information" page
+    And I fill in the Bill To form with the following values:
+      | Name        | Francisco           |
+      | Address     | Linden Ave #445     |
+      | City        | Las Vegas           |
+      | State       | Nevada              |
+      | Zip         | 89110               |
+      | Phone       | 1234567890          |
+      | E-mail      | francisco@gmail.com |
+      | Credit Card | MasterCard          |
+      | Card Number | 1234-5678-1234-5678 |
+      | Card Date   | 01/20               |
+    And I check the Same as "Bill to" option
+    When I click the "Place The Order" button
+    Then a popup window should be displayed with the text "Please enter a valid date of the form 'MM/YY' in this field."
