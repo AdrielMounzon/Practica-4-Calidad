@@ -83,3 +83,15 @@ Given('I am on the {string} page') do |page_name|
     expect(find(:xpath, grand_total_xpath).text).to eq(grand_total)
   end
   
+  When('I click the "Place An Order" button without adding any product') do
+    click_button('Place An Order')
+  end
+  
+  Then('I should see a message "Your cart is empty"') do
+    expect(page).to have_content('Your cart is empty')
+  end
+  
+  Then('the order should not be placed') do
+    expect(current_path).to eq('/gmopost/products.htm') # Asegúrate de que esto sea correcto
+  end
+  
