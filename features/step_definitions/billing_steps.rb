@@ -57,4 +57,3 @@ Then('a popup window should be displayed with the text {string}') do |expected_t
     alert_text = page.accept_alert
     expect(alert_text).to eq(expected_text)
   end
-  
