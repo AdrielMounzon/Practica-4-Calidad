@@ -10,7 +10,7 @@ Feature: Add items to shopping cart
     And I press the browser´s back button
     When I write "1" on the order quantity of "Padded Socks"
     And I click the "Place An Order" button
-    Then the cart should display "1 Padded Socks"
+    Then the cart should display "1" in the quantity column and "Padded Socks" in the product description column
     And the product total should be "$19.99"
     And the grand total should be "$25.99"
 
