@@ -68,3 +68,12 @@ end
 Then('I should see a message "{string}"') do |message|
   expect(page).to have_content(message)
 end
+
+When('I click the "Reset Form" button') do
+  click_button('Reset Form')
+end
+
+Then('the order form should be cleared') do
+  quantity_input_xpath = "//input[@name='QTY_SOCKS']"
+  expect(find(:xpath, quantity_input_xpath).value).to eq('0');
+end

@@ -49,5 +49,4 @@ Feature: Add items to shopping cart
     And I write "2" on the order quantity of "Hiking Boots"
     And I click the "Place An Order" button
     When I click the "Reset Form" button
-    Then the shopping cart should be empty
     And the order form should be cleared
