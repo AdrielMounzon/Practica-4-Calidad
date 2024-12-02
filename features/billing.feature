@@ -71,7 +71,7 @@ Background:
     When I click the "Place The Order" button
     Then a popup window should be displayed with the text "Please enter a valid phone number in this field."
 
-  Scenario: Enter a non valid credit card number
+  Scenario Outline: Enter a non valid credit card number
     And I fill in the Bill To form with the following values:
       | Name        | Francisco           |
       | Address     | Linden Ave #445     |
@@ -80,12 +80,18 @@ Background:
       | Zip         | 89110               |
       | Phone       | 1234567890          |
       | E-mail      | francisco@gmail.com |
-      | Credit Card | American Express    |
-      | Card Number | 1234-5678-1234-5678 |
+      | Credit Card | <card_provider>     |
+      | Card Number | <card_number>       |
       | Card Date   | 11/26               |
     And I check the Same as "Bill to" option
     When I click the "Place The Order" button
-    Then a popup window should be displayed with the text "Please enter a valid card number of the form '1234-123456-12345' in this field."
+    Then a popup window should be displayed with the text "Please enter a valid card number of the form <correct_format> in this field."
+
+Examples:
+  | card_provider    | card_number         | correct_format        |
+  | American Express | 1234-1234-1234-1234 | '1234-123456-12345'   |
+  | MasterCard       | 1234-123456-12345   | '1234-1234-1234-1234' |
+  | Visa             | 1234-123456-12345   | '1234-1234-1234-1234' |
 
   Scenario: Enter an expirated credit card
     And I fill in the Bill To form with the following values:
