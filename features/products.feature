@@ -8,7 +8,7 @@ Feature: Validate product details
     When I scroll to the "<product_name>" section
     Then the product name should be "<product_name>"
     And the marketing text should be "<marketing_text>"
-    And an image should be shown
+    And an image of the product should be shown
     And "Unit Price" should be "<unit_price>"
     And "# In Stock" should be "<in_stock>"
     And "Item Number" should be "<item_number>"
