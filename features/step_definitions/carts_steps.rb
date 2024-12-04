@@ -1,5 +1,5 @@
-Given('I am on the {string} page') do |page_name|
-  visit('https://demo.borland.com/gmopost/online-catalog.htm') if page_name == "OnLine Catalog"
+Given('I am on the "OnLine Catalog" page') do
+  visit('https://demo.borland.com/gmopost/online-catalog.htm')
 end
 
 When('I click on the {string} item on the item name column') do |item_name|
