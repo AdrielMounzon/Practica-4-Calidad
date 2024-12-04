@@ -27,8 +27,8 @@ Then('the marketing text should be {string}') do |expected_marketing_text|
   expect(actual_marketing_text).to eq(expected_marketing_text)
 end
 
-# And an image should be shown
-Then('an image should be shown') do
+# And an image of the product should be shown
+Then('an image of the product should be shown') do
   image_xpath = "#{product_base_xpath}/../following-sibling::div[1]//table//tr[1]/td[1]/img"
   expect(page).to have_selector(:xpath, image_xpath)
 end
