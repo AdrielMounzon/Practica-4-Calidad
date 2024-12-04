@@ -14,15 +14,17 @@ When('I scroll to the {string} section') do |product_name|
   page.execute_script("document.evaluate(\"#{product_base_xpath}\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollIntoView();")
 end
 
-# Then the product name should be shown
-Then('the product name should be shown') do
-  expect(page).to have_selector(:xpath, product_base_xpath)
+# Then the product name should be "<product_name>"
+Then('the product name should be {string}') do |expected_product_name|
+  actual_product_name = find(:xpath, product_base_xpath).text.strip
+  expect(actual_product_name).to eq(expected_product_name)
 end
 
-# And the slogan should be shown
-Then('the slogan should be shown') do
-  slogan_xpath = "#{product_base_xpath}/../following-sibling::p/font/em"
-  expect(page).to have_selector(:xpath, slogan_xpath)
+# And the marketing text should be "<marketing_text>"
+Then('the marketing text should be {string}') do |expected_marketing_text|
+  slogan_xpath = "#{product_base_xpath}/../following-sibling::p[1]/font/em"
+  actual_marketing_text = find(:xpath, slogan_xpath).text.strip
+  expect(actual_marketing_text).to eq(expected_marketing_text)
 end
 
 # And an image should be shown
@@ -31,30 +33,30 @@ Then('an image should be shown') do
   expect(page).to have_selector(:xpath, image_xpath)
 end
 
-# And "Unit Price" should be greater than 0
-Then('"Unit Price" should be greater than 0') do
+# And "Unit Price" should be "<unit_price>"
+Then('"Unit Price" should be {string}') do |expected_unit_price|
   unit_price_xpath = "#{product_base_xpath}/../following-sibling::div[1]//table//tr[1]/td[3]"
-  unit_price = find(:xpath, unit_price_xpath).text.strip
-  unit_price = unit_price.gsub('$', '').to_f
-  expect(unit_price).to be > 0
+  actual_unit_price = find(:xpath, unit_price_xpath).text.strip.gsub('$', '').to_f
+  expect(actual_unit_price).to eq(expected_unit_price.to_f)
 end
 
-# And "# In Stock" should be equal or greater than 0
-Then('"# In Stock" should be equal or greater than 0') do
+# And "# In Stock" should be "<in_stock>"
+Then('"# In Stock" should be {string}') do |expected_in_stock|
   stock_xpath = "#{product_base_xpath}/../following-sibling::div[1]//table//tr[2]/td[2]"
-  stock = find(:xpath, stock_xpath).text.strip
-  expect(stock.to_i).to be >= 0
+  actual_stock = find(:xpath, stock_xpath).text.strip.to_i
+  expect(actual_stock).to eq(expected_in_stock.to_i)
 end
 
-# And "Item Number" should be equal or greater than 0
-Then('"Item Number" should be equal or greater than 0') do
+# And "Item Number" should be "<item_number>"
+Then('"Item Number" should be {string}') do |expected_item_number|
   item_number_xpath = "#{product_base_xpath}/../following-sibling::div[1]//table//tr[3]/td[2]"
-  item_number = find(:xpath, item_number_xpath).text.strip
-  expect(item_number.to_i).to be >= 0
+  actual_item_number = find(:xpath, item_number_xpath).text.strip.to_i
+  expect(actual_item_number).to eq(expected_item_number.to_i)
 end
 
-# And the description below the image should be shown
-Then('the description below the image should be shown') do
-  description_xpath = "#{product_base_xpath}/../following-sibling::div[1]/following-sibling::p"
-  expect(page).to have_selector(:xpath, description_xpath)
+# And the description below the image should be "<description>"
+Then('the description below the image should be {string}') do |expected_description|
+  description_xpath = "#{product_base_xpath}/../following-sibling::div[1]/following-sibling::p[1]"
+  actual_description = find(:xpath, description_xpath).text.strip
+  expect(actual_description).to eq(expected_description)
 end
