@@ -5,7 +5,7 @@ Given('I am on the OnLine Store Receipt page') do
   end
   
   # When I click the "Return to Home Page" button
-  When('I click the {string} button') do |buttonText|
+  When('I click the {string} button below the Online Store Receipt') do |buttonText|
     click_button(buttonText)
   end
   
