@@ -81,3 +81,18 @@ Feature: Add items to shopping cart
     | Hiking Boots              | 1        | 109.90        | 5.5       | 120.40      |
     | Back Country Shorts       | 1        | 24.95         | 1.25      | 31.2        |
 
+  Scenario: Validate Shipping & Handling charge
+    When I write "<quantity>" on the order quantity of "<product_name>"
+    And I click the "Place An Order" button
+    Then I see the Shipping & Handling as "$5.00"
+
+  Examples:
+    | product_name             | quantity |
+    | 3 Person Dome Tent       | 1        |
+    | 3 Person Dome Tent       | 2        |
+    | External Frame Backpack  | 1        |
+    | External Frame Backpack  | 3        |
+    | Glacier Sun Glasses      | 2        |
+    | Padded Socks             | 5        |
+    | Hiking Boots             | 1        |
+    | Back Country Shorts      | 3        |

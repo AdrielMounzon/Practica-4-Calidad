@@ -125,3 +125,11 @@ Then('the grand total should be {string}') do |grand_total|
   actual_grand_total = find(:xpath, grand_total_xpath).text.strip.gsub('$', '').strip
   expect(actual_grand_total).to eq(grand_total), "Expected Grand Total to be '#{grand_total}', but got '#{actual_grand_total}'"
 end
+
+# Then I see the Shipping & Handling as "$5.00"
+Then('I see the Shipping & Handling as {string}') do |shipping_handling|
+  shipping_handling_xpath = "/html/body/form/table/tbody/tr[1]/td/div/center/table/tbody/tr[6]/td[2]"
+  actual_shipping_handling = find(:xpath, shipping_handling_xpath).text.strip
+  expect(actual_shipping_handling).to eq(shipping_handling), "Expected Shipping & Handling to be '#{shipping_handling}', but got '#{actual_shipping_handling}'"
+end
+
