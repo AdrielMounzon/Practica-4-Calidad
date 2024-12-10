@@ -45,6 +45,5 @@ Feature: Add items to shopping cart
 
   Scenario: Add items to shopping cart and reset the form
     And I write "2" on the order quantity of "Hiking Boots"
-    And I click the "Place An Order" button
     When I click the "Reset Form" button
     And the order form should be cleared

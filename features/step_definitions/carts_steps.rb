@@ -74,6 +74,6 @@ When('I click the "Reset Form" button') do
 end
 
 Then('the order form should be cleared') do
-  quantity_input_xpath = "//input[@name='QTY_SOCKS']"
+  quantity_input_xpath = "//input[@name='QTY_BOOTS']"
   expect(find(:xpath, quantity_input_xpath).value).to eq('0');
 end
