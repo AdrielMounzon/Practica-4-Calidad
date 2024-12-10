@@ -111,3 +111,17 @@ Then('the combined grand total should be {string}') do |grand_total|
   grand_total_xpath = "/html/body/form/table/tbody/tr[1]/td/div/center/table/tbody/tr[7]/td[2]/strong"
   expect(find(:xpath, grand_total_xpath).text.strip.gsub('$', '').strip).to eq(grand_total)
 end
+
+# Then I see the correct Sales Tax as "<sales_tax>"
+Then('I see the correct Sales Tax as {string}') do |sales_tax|
+  sales_tax_xpath = "/html/body/form/table/tbody/tr[1]/td/div/center/table/tbody/tr[4]/td[2]"
+  actual_sales_tax = find(:xpath, sales_tax_xpath).text.strip.gsub('$', '').strip
+  expect(actual_sales_tax).to eq(sales_tax), "Expected Sales Tax to be '#{sales_tax}', but got '#{actual_sales_tax}'"
+end
+
+# And the grand total should be "<grand_total>"
+Then('the grand total should be {string}') do |grand_total|
+  grand_total_xpath = "/html/body/form/table/tbody/tr[1]/td/div/center/table/tbody/tr[6]/td[2]/strong"
+  actual_grand_total = find(:xpath, grand_total_xpath).text.strip.gsub('$', '').strip
+  expect(actual_grand_total).to eq(grand_total), "Expected Grand Total to be '#{grand_total}', but got '#{actual_grand_total}'"
+end

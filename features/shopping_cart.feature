@@ -57,3 +57,27 @@ Feature: Add items to shopping cart
     And I write "50" on the order quantity of "Padded Socks"
     And I click the "Place An Order" button
     Then I should see a message "Insufficient stock for Padded Socks"
+
+  Scenario Outline: Validate Sales Tax and Grand Total for different products
+    And I click on the "<product_name>" item on the item name column
+    And the product "<product_name>" has at least <quantity> units
+    And I press the browser's back button
+    When I write "<quantity>" on the order quantity of "<product_name>"
+    And I click the "Place An Order" button
+    Then I should be on the "Place Order" page
+    And the cart should display "<quantity>" in the quantity column and "<product_name>" in the product description column
+    And the product total should be "<product_total>"
+    And I see the correct Sales Tax as "<sales_tax>"
+    And the grand total should be "<grand_total>"
+
+  Examples:
+    | product_name              | quantity | product_total | sales_tax | grand_total |
+    | 3 Person Dome Tent        | 1        | 299.99        | 15        | 319.99      |
+    | 3 Person Dome Tent        | 2        | 599.98        | 30        | 634.98      |
+    | External Frame Backpack   | 1        | 179.95        | 9         | 193.95      |
+    | External Frame Backpack   | 2        | 359.9         | 18        | 382.9       |
+    | Glacier Sun Glasses       | 1        | 67.99         | 3.4       | 76.39       |
+    | Padded Socks              | 1        | 19.99         | 1         | 25.99       |
+    | Hiking Boots              | 1        | 109.90        | 5.5       | 120.40      |
+    | Back Country Shorts       | 1        | 24.95         | 1.25      | 31.2        |
+
