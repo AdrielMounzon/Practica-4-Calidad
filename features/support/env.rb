@@ -3,6 +3,10 @@ begin require 'rspec/expectations'; rescue LoadError; require 'spec/expectations
     require 'capybara/dsl'
     require 'capybara/cucumber'
     require 'capybara-screenshot/cucumber'
+
+    require_relative 'pages/base_page'
+    require_relative 'pages/receipt_page'
+    require_relative 'pages/home_page'
     
     
     Capybara.default_driver = :selenium
