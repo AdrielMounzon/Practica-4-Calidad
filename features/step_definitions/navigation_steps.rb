@@ -1,16 +1,18 @@
 # Given I am on the OnLine Store Receipt page
 Given('I am on the OnLine Store Receipt page') do
-    page.driver.browser.manage.window.maximize
-    visit('https://demo.borland.com/gmopost/cgi-bin/perl.exe?confirm-order.pl')
+  @receipt_page = ReceiptPage.new
+  @receipt_page.maximize_window
+  @receipt_page.open
   end
   
-  # When I click the "Return to Home Page" button
-  When('I click the {string} button below the Online Store Receipt') do |buttonText|
-    click_button(buttonText)
-  end
+  # When I click the "Return to Home Page" button below the Online Store Receipt
+When('I click the {string} button below the Online Store Receipt') do |buttonText|
+  @receipt_page.click_button_by_text(buttonText)
+end
   
   # Then I should be redirected to the home page
-  Then('I should be redirected to the home page') do
-    expect(page.current_url).to eq(Capybara.app_host)
-  end
+Then('I should be redirected to the home page') do
+  @home_page = HomePage.new
+  expect(@home_page.current_url).to eq(Capybara.app_host)
+end
   
