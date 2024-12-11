@@ -6,7 +6,7 @@ begin require 'rspec/expectations'; rescue LoadError; require 'spec/expectations
 
     require_relative 'pages/base_page'
     require_relative 'pages/receipt_page'
-    require_relative 'pages/home_page'
+    # require_relative 'pages/home_page'
     require_relative 'pages/products_page'
     
     

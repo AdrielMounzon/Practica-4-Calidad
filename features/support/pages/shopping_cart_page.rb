@@ -60,5 +60,10 @@ class ShoppingCartPage < BasePage
     def verify_alert_message
         find('.alert').text.strip
     end
+
+    def set_order_quantity(product_name, quantity)
+        input_xpath = "//table//tr//td/a/strong[contains(normalize-space(text()), '#{product_name}')]/ancestor::tr/td[4]/h1/input"
+        find(:xpath, input_xpath).set(quantity)
+      end
   end
   

@@ -1,7 +1,12 @@
-# Given I am on the "Billing Information" page
-Given('I am on the "Billing Information" page') do
+# Given I am on the "GMO Online" homepage
+Given('I am on the "GMO Online" homepage') do
     @billing_page = BillingPage.new
-    @billing_page.visit_billing_page
+    @billing_page.visit_page("https://demo.borland.com/gmopost/")
+  end
+
+# And I write {number} on the order quantity of {string}
+When('I write {string} on the order quantity of {string}') do |quantity, product_name|
+    @billing_page.set_order_quantity(product_name, quantity)
   end
 
 # And I fill in the Bill To form with the following values:
@@ -10,8 +15,8 @@ When('I fill in the Bill To form with the following values:') do |table|
     @billing_page.fill_billing_form(data)
   end
 
-# When I click the "Place The Order" button
-When('I click the {string} button on the billing page') do |buttonText|
+# And I click the {string} button
+When('I click the {string} button') do |buttonText|
     @billing_page.click_button_by_text(buttonText)
   end
 

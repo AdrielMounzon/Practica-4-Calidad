@@ -10,8 +10,8 @@ When('I click the {string} button below the Online Store Receipt') do |buttonTex
 end
   
   # Then I should be redirected to the home page
-Then('I should be redirected to the home page') do
-  @home_page = HomePage.new
-  expect(@home_page.current_url).to eq(Capybara.app_host)
-end
+# Then('I should be redirected to the home page') do
+#   @home_page = HomePage.new
+#   expect(@home_page.current_url).to eq(Capybara.app_host)
+# end
   

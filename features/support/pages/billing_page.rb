@@ -1,7 +1,4 @@
 class BillingPage < BasePage
-    def visit_billing_page
-      visit_page('https://demo.borland.com/gmopost/cgi-bin/perl.exe?ship-info.pl')
-    end
   
     def fill_billing_form(data)
       data.each_pair do |key, value|
@@ -41,6 +38,11 @@ class BillingPage < BasePage
     def verify_popup_message(expected_text)
       alert_text = page.accept_alert
       expect(alert_text).to eq(expected_text)
+    end
+    
+    def set_order_quantity(product_name, quantity)
+      input_xpath = "//table//tr//td/a/strong[contains(normalize-space(text()), '#{product_name}')]/ancestor::tr/td[4]/h1/input"
+      find(:xpath, input_xpath).set(quantity)
     end
   end
   
