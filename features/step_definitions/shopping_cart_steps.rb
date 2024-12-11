@@ -6,6 +6,7 @@ Given('I am on the "OnLine Catalog" page') do
   unless @shopping_cart_page.has_content?
     fail("La página no tiene contenido")
   end
+end
 
 Given('I click on the {string} item on the item name column') do |product_name|
   @shopping_cart_page.select_product(product_name)
@@ -13,7 +14,7 @@ end
 
 Given('I am now on the "Products" page') do
   @products_page = ProductsPage.new
-  expect(@products_page.current_url).to eq(ProductsPage::PRODUCTS_URL)
+  expect(@products_page.current_url).to eq("https://demo.borland.com/gmopost/products.htm")
 end
 
 Given('the product {string} has at least 1 unit') do |product_name|

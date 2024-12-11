@@ -4,7 +4,6 @@ end
 
 Before do
   page.driver.browser.manage.delete_all_cookies
-  Capybara.default_max_wait_time = 5 #segundos
 end
 
 After do |scenario|

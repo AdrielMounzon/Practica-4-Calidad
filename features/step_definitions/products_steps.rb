@@ -7,6 +7,7 @@ Given('I am on the Products page') do
   unless @products_page.has_content?
     fail("La página no tiene contenido")
   end
+end
 
 # When I scroll to the "<product_name>" section
 When('I scroll to the {string} section') do |product_name|

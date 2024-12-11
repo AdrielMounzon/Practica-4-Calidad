@@ -78,10 +78,6 @@ class ShoppingCartPage
     find(:xpath, shipping_and_handling_xpath).text.strip
   end
 
-  def visit_page(url)
-    visit(url)
-  end
-
   def has_content?
     page_content = page.body.strip # Obtiene el contenido HTML de la página
     !(page_content.empty? || page_content.scan(/\w+/).empty?)

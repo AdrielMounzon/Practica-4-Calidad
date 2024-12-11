@@ -5,7 +5,8 @@ Given('I am on the OnLine Store Receipt page') do
   unless @receipt_page.has_content?
     fail("La página no tiene contenido")
   end
-  
+end
+
   # When I click the "Return to Home Page" button below the Online Store Receipt
 When('I click the {string} button below the Online Store Receipt') do |buttonText|
   @receipt_page.click_button_by_text(buttonText)
