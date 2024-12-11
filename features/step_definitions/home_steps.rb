@@ -1,21 +1,21 @@
 # Given I am on the "GMO Online" homepage
 Given('I am on the "GMO Online" homepage') do
-    visit('https://demo.borland.com/gmopost/')
+  @home_page=HomePage.new
+  @home_page.visit_page('https://demo.borland.com/gmopost/')
   end
   
   # When I click the {string} button
-  When('I click the {string} button') do |button_name|
-    button_selectors = {
-      "About The GMO Site" => 'body > form > div:nth-child(1) > center > table > tbody > tr > td:nth-child(2) > input[type=button]',
-      "Browser Test Page" => 'body > form > div:nth-child(3) > center > table > tbody > tr > td > input[type=button]'
-    }
+  When('I click the {string} button in the homepage' ) do |button_name|
+    # button_selectors = {
+    #   "About The GMO Site" => 'body > form > div:nth-child(1) > center > table > tbody > tr > td:nth-child(2) > input[type=button]',
+    #   "Browser Test Page" => 'body > form > div:nth-child(3) > center > table > tbody > tr > td > input[type=button]'
+    # }
     
-    button_selector = button_selectors[button_name]
-    if button_selector.nil?
-      raise "Button selector not found for '#{button_name}'"
-    end
-    
-    find(:css, button_selector).click
+    # button_selector = button_selectors[button_name]
+    # if button_selector.nil?
+    #   raise "Button selector not found for '#{button_name}'"
+    # end
+    @home_page.click_button_by_text(button_name)
   end
   
   # Then I should be redirected to the {string} page

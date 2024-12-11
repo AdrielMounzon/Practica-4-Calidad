@@ -9,11 +9,11 @@ Feature: About The GMO Site
 
 
   Scenario: Navigate to "About This Site" page from the homepage
-    When I click the "About The GMO Site" button
+    When I click the "About The GMO Site" button in the homepage
     Then I should be redirected to the "About This Site" page
     And I should see the title "About This Site"
 
-  Scenario: Navigate to "About This Site" page from the homepage
-    When I click the "Browser Test Page" button
+  Scenario: Navigate to "Browser Test Page" page from the homepage
+    When I click the "Browser Test Page" button in the homepage
     Then I should be redirected to the "Browser Test Page"
-    And I should see the title "Browser Test Page"
+    And I should see the title "All Browsers Are Not Created Equal"
