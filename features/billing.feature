@@ -20,7 +20,7 @@ Background:
       | Card Number | 1234-5678-1234-5678 |
       | Card Date   | 11/26               |
     And I check the Same as "Bill to" option
-    When I click the "Place The Order" button
+    When I click the "Place The Order" button on the billing page
     Then the "OnLine Store Receipt" page should show all the information I provided
 
   Scenario: Leave a required field empty
@@ -36,7 +36,7 @@ Background:
       | Card Number | 1234-5678-1234-5678 |
       | Card Date   | 11/26               |
     And I check the Same as "Bill to" option
-    When I click the "Place The Order" button
+    When I click the "Place The Order" button on the billing page
     Then a popup window should be displayed with the text "This is a required field."
 
   Scenario: Enter a non valid zip code
@@ -52,7 +52,7 @@ Background:
       | Card Number | 1234-5678-1234-5678 |
       | Card Date   | 11/26               |
     And I check the Same as "Bill to" option
-    When I click the "Place The Order" button
+    When I click the "Place The Order" button on the billing page
     Then a popup window should be displayed with the text "Please enter a valid zip code in this field."
 
   Scenario: Enter a non valid phone number
@@ -68,7 +68,7 @@ Background:
       | Card Number | 1234-5678-1234-5678 |
       | Card Date   | 11/26               |
     And I check the Same as "Bill to" option
-    When I click the "Place The Order" button
+    When I click the "Place The Order" button on the billing page
     Then a popup window should be displayed with the text "Please enter a valid phone number in this field."
 
   Scenario Outline: Enter a non valid credit card number
@@ -84,7 +84,7 @@ Background:
       | Card Number | <card_number>       |
       | Card Date   | 11/26               |
     And I check the Same as "Bill to" option
-    When I click the "Place The Order" button
+    When I click the "Place The Order" button on the billing page
     Then a popup window should be displayed with the text "Please enter a valid card number of the form <correct_format> in this field."
 
 Examples:
@@ -106,5 +106,5 @@ Examples:
       | Card Number | 1234-5678-1234-5678 |
       | Card Date   | 01/20               |
     And I check the Same as "Bill to" option
-    When I click the "Place The Order" button
+    When I click the "Place The Order" button on the billing page
     Then a popup window should be displayed with the text "Please enter a valid date of the form 'MM/YY' in this field."

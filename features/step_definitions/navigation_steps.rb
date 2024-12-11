@@ -1,7 +1,6 @@
 # Given I am on the OnLine Store Receipt page
 Given('I am on the OnLine Store Receipt page') do
   @receipt_page = ReceiptPage.new
-  @receipt_page.maximize_window
   @receipt_page.open
   end
   
