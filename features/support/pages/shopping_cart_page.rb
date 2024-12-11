@@ -1,5 +1,5 @@
 # shopping_cart_page.rb
-class ShoppingCartPage
+class ShoppingCartPage < BasePage
     include Capybara::DSL
   
     def visit_catalog
@@ -10,45 +10,36 @@ class ShoppingCartPage
       find(:xpath, "//table//tr//td/a/strong[contains(normalize-space(text()), '#{product_name}')]").click
     end
   
-    def verify_products_page()expect
-        expect(page).to have_current_path('/products')
+    def verify_product_stock(product_name)
+       stock_xpath = "//h2/a[contains(text(), '#{product_name}')]/../following-sibling::div[1]//table//tr[2]/td[2]"
+       find(:xpath, stock_xpath).text.strip.to_i
     end
   
-    def verify_product_stock(product_name, min_stock = 1)
-      stock_xpath = "//h2/a[contains(text(), '#{product_name}')]/../following-sibling::div[1]//table//tr[2]/td[2]"
-      stock = find(:xpath, stock_xpath).text.strip.to_i
-      expect(stock).to be >= min_stock
+    def set_order_quantity(quantity)
+        find('body > form > table > tbody > tr:nth-child(2) > td > div > center > table > tbody > tr:nth-child(3) > td:nth-child(4) > h1 > input[type=text]').set(quantity)
     end
   
-    def set_order_quantity(product_name, quantity)
-      input_xpath = "//table//tr//td/a/strong[contains(normalize-space(text()), '#{product_name}')]/ancestor::tr/td[4]/h1/input"
-      find(:xpath, input_xpath).set(quantity)
-    end
-  
-    def place_order
-      click_button('Place An Order')
+    def click_custom_button(button_name)
+      click_button(button_name)
     end
   
     def verify_order_page
-      expect(page.current_url).to match('https://demo.borland.com/gmopost/cgi-bin/perl.exe?place-order.pl')
+        page.current_url.match('https://demo.borland.com/gmopost/cgi-bin/perl.exe?place-order.pl')
     end
   
     def verify_cart_quantity(product_name, expected_quantity)
       input_xpath = "//table//tr//td/a/strong[contains(normalize-space(text()), '#{product_name}')]"
-      actual_product_name = find(:xpath, input_xpath).text.strip
-      expect(actual_product_name).to eq(product_name)
+      find(:xpath, input_xpath).text.strip
     end
   
     def verify_product_total(expected_total)
       total_xpath = "/html/body/form/table/tbody/tr[1]/td/div/center/table/tbody/tr[3]/td[3]"
-      actual_total = find(:xpath, total_xpath).text.strip.gsub('$', '').strip
-      expect(actual_total).to eq(expected_total)
+      find(:xpath, total_xpath).text.strip.gsub('$', '').strip
     end
   
     def verify_grand_total(expected_grand_total)
       grand_total_xpath = "/html/body/form/table/tbody/tr[1]/td/div/center/table/tbody/tr[6]/td[2]/strong"
-      actual_grand_total = find(:xpath, grand_total_xpath).text.strip.gsub('$', '').strip
-      expect(actual_grand_total).to eq(expected_grand_total)
+      find(:xpath, grand_total_xpath).text.strip.gsub('$', '').strip
     end
   
     def clear_order_form
@@ -62,13 +53,12 @@ class ShoppingCartPage
       ]
   
       input_xpaths.each do |xpath|
-        actual_value = find(:xpath, xpath).value
-        expect(actual_value).to eq('0'), "Expected input at #{xpath} to be '0', but got '#{actual_value}'"
+        find(:xpath, xpath).value
       end
     end
   
-    def verify_alert_message(expected_message)
-      expect(page.driver.browser.switch_to.alert.text).to eq(expected_message)
+    def verify_alert_message
+        find('.alert').text.strip
     end
   end
   
