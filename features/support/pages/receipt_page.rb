@@ -5,8 +5,5 @@ class ReceiptPage < BasePage
       visit_page(RECEIPT_URL)
     end
   
-    def maximize_window
-      page.driver.browser.manage.window.maximize
-    end
   end
   
