@@ -3,8 +3,10 @@
 # Given I am on the Products page
 Given('I am on the Products page') do
   @products_page = ProductsPage.new
-  @products_page.open
-end
+  @products_page.visit_page
+  unless @products_page.has_content?
+    fail("La página no tiene contenido")
+  end
 
 # When I scroll to the "<product_name>" section
 When('I scroll to the {string} section') do |product_name|

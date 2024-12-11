@@ -1,10 +1,9 @@
 class ProductsPage
   include Capybara::DSL
   include RSpec::Matchers
-  PRODUCTS_URL = 'https://demo.borland.com/gmopost/products.htm'
 
-  def open
-    visit_page(PRODUCTS_URL)
+  def visit_page
+    visit("https://demo.borland.com/gmopost/products.htm")
   end
   
   def current_url
@@ -56,10 +55,6 @@ class ProductsPage
   def description
     xpath = "#{product_base_xpath}/../following-sibling::div[1]/following-sibling::p[1]"
     find(:xpath, xpath).text.strip
-  end
-
-  def visit_page(url)
-    visit(url)
   end
 
   def has_content?

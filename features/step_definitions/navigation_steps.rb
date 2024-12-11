@@ -2,6 +2,8 @@
 Given('I am on the OnLine Store Receipt page') do
   @receipt_page = ReceiptPage.new
   @receipt_page.visit_page
+  unless @receipt_page.has_content?
+    fail("La página no tiene contenido")
   end
   
   # When I click the "Return to Home Page" button below the Online Store Receipt

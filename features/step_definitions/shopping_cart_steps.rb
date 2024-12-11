@@ -1,9 +1,11 @@
 # shopping_cart_steps.rb
 Given('I am on the "OnLine Catalog" page') do
   @shopping_cart_page = ShoppingCartPage.new
-  @shopping_cart_page.visit_catalog
+  @shopping_cart_page.visit_page
   @billing_page = BillingPage.new
-end
+  unless @shopping_cart_page.has_content?
+    fail("La página no tiene contenido")
+  end
 
 Given('I click on the {string} item on the item name column') do |product_name|
   @shopping_cart_page.select_product(product_name)

@@ -2,10 +2,8 @@ class ReceiptPage
   include Capybara::DSL
   include RSpec::Matchers
   
-    RECEIPT_URL = 'https://demo.borland.com/gmopost/cgi-bin/perl.exe?confirm-order.pl'
-
-    def visit_page()
-      visit(RECEIPT_URL)
+    def visit_page
+      visit("https://demo.borland.com/gmopost/cgi-bin/perl.exe?confirm-order.pl")
     end
 
     def has_content?

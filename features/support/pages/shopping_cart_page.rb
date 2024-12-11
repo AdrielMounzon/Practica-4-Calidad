@@ -2,7 +2,7 @@ class ShoppingCartPage
   include Capybara::DSL
   include RSpec::Matchers
 
-  def visit_catalog
+  def visit_page
     visit('https://demo.borland.com/gmopost/online-catalog.htm')
   end
 

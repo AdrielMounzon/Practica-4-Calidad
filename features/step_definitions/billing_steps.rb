@@ -1,8 +1,10 @@
 # Given I am on the "GMO Online" homepage
 Given('I am on the "GMO Online" homepage') do
   @billing_page = BillingPage.new
-  @billing_page.visit_page("https://demo.borland.com/gmopost/")
-end
+  @billing_page.visit_page
+  unless @billing_page.has_content?
+    fail("La página no tiene contenido")
+  end
 
 # And I fill in the Bill To form with the next values:
 When('I fill in the Bill To form with the next values:') do |table|

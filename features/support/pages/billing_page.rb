@@ -1,5 +1,4 @@
 class BillingPage
-
   include Capybara::DSL
   include RSpec::Matchers
   
@@ -48,8 +47,8 @@ class BillingPage
     find(:xpath, input_xpath).set(quantity)
   end
 
-  def visit_page(url)
-    visit(url)
+  def visit_page
+    visit("https://demo.borland.com/gmopost/")
   end
 
   def has_content?
