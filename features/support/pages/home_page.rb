@@ -1,7 +1,10 @@
-class BasePage
-    include Capybara::DSL
-    include RSpec::Matchers
-  
+class HomePage
+  include Capybara::DSL
+  include RSpec::Matchers
+    def current_url
+      "https://demo.borland.com/gmopost/"
+    end
+
     def visit_page(url)
       visit(url)
     end

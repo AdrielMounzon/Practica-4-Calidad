@@ -1,6 +1,6 @@
-# features/support/pages/products_page.rb
-
-class ProductsPage < BasePage
+class ProductsPage
+  include Capybara::DSL
+  include RSpec::Matchers
   PRODUCTS_URL = 'https://demo.borland.com/gmopost/products.htm'
 
   def open
@@ -30,7 +30,6 @@ class ProductsPage < BasePage
 
   def marketing_text
     xpath = "#{product_base_xpath}/../following-sibling::p[1]/font/em"
-    puts xpath
     find(:xpath, xpath).text.strip
   end
 
@@ -57,5 +56,22 @@ class ProductsPage < BasePage
   def description
     xpath = "#{product_base_xpath}/../following-sibling::div[1]/following-sibling::p[1]"
     find(:xpath, xpath).text.strip
+  end
+
+  def visit_page(url)
+    visit(url)
+  end
+
+  def has_content?
+    page_content = page.body.strip # Obtiene el contenido HTML de la página
+    !(page_content.empty? || page_content.scan(/\w+/).empty?)
+  end
+
+  def click_button_by_text(button_text)
+    click_button(button_text)
+  end
+
+  def scroll_to_element(xpath)
+    page.execute_script("document.evaluate(\"#{xpath}\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollIntoView();")
   end
 end

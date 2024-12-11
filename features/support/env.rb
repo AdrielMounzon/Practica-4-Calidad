@@ -4,10 +4,10 @@ begin require 'rspec/expectations'; rescue LoadError; require 'spec/expectations
     require 'capybara/cucumber'
     require 'capybara-screenshot/cucumber'
 
-    require_relative 'pages/base_page'
-    require_relative 'pages/receipt_page'
-    # require_relative 'pages/home_page'
+    require_relative 'pages/home_page'
     require_relative 'pages/products_page'
+    require_relative 'pages/billing_page'
+    require_relative 'pages/shopping_cart_page'
     
     
     Capybara.default_driver = :selenium
