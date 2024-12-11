@@ -9,7 +9,7 @@ Given('I click on the {string} item on the item name column') do |product_name|
 end
 
 Given('I am now on the "Products" page') do
-  @shopping_cart_page.verify_product_page
+  @shopping_cart_page.verify_products_page
 end
 
 Given('the product {string} has at least 1 unit') do |product_name|

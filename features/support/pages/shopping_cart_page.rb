@@ -10,8 +10,8 @@ class ShoppingCartPage
       find(:xpath, "//table//tr//td/a/strong[contains(normalize-space(text()), '#{product_name}')]").click
     end
   
-    def verify_product_page(product_name)
-      expect(page.current_url).to match(/https:\/\/demo\.borland\.com\/gmopost\/products\.htm/)
+    def verify_products_page()expect
+        expect(page).to have_current_path('/products')
     end
   
     def verify_product_stock(product_name, min_stock = 1)
