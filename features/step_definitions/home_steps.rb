@@ -6,38 +6,26 @@ Given('I am on the "GMO Online" homepage') do
   
   # When I click the {string} button
   When('I click the {string} button in the homepage' ) do |button_name|
-    # button_selectors = {
-    #   "About The GMO Site" => 'body > form > div:nth-child(1) > center > table > tbody > tr > td:nth-child(2) > input[type=button]',
-    #   "Browser Test Page" => 'body > form > div:nth-child(3) > center > table > tbody > tr > td > input[type=button]'
-    # }
-    
-    # button_selector = button_selectors[button_name]
-    # if button_selector.nil?
-    #   raise "Button selector not found for '#{button_name}'"
-    # end
     @home_page.click_button_by_text(button_name)
   end
   
-  # Then I should be redirected to the {string} page
-  Then('I should be redirected to the {string} page') do |page_name|
-    expected_urls = {
-      "About This Site" => "https://demo.borland.com/gmopost/about.htm",
-      "Browser Test Page" => "https://demo.borland.com/gmopost/browser-test.htm"
-    }
-  
-    expected_url = expected_urls[page_name]
-    if expected_url.nil?
-      raise "URL not found for '#{page_name}'"
-    end
-  
-    expect(page.current_url).to eq(expected_url), "Expected to be on '#{expected_url}' but was on '#{page.current_url}'"
+  # Then I should be redirected to the "About This Page" page
+  Then('I should be redirected to the "About This Site" page') do
+    @about_page = AboutPage.new
+    expect(@about_page.current_url).to eq(AboutPage::ABOUT_URL)
+  end
+
+   # Then I should be redirected to the "Broser Test Page" page
+  Then('I should be redirected to the "Browser Test Page"') do
+    @browser_page = AboutPage.new
+    expect(@browser_page.current_url).to eq(BrowserPage::BROWSER_URL)
   end
   
   # And I should see the title {string}
   Then('I should see the title {string}') do |expected_title|
     title_xpaths = {
       "About This Site" => '/html/body/table/tbody/tr/td[1]/h1',
-      "Browser Test Page" => '/html/body/h1/font'
+      "All Browsers Are Not Created Equal" => '/html/body/h1/font'
     }
     
     title_xpath = title_xpaths[expected_title]

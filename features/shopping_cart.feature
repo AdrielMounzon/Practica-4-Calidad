@@ -6,6 +6,7 @@ Feature: Add items to shopping cart
   Background:
     Given I am on the "OnLine Catalog" page
 
+  @maximize
   Scenario Outline: Add a single item to the cart
     And I click on the "<product_name>" item on the item name column
     And I am now on the "Products" page
@@ -27,6 +28,7 @@ Feature: Add items to shopping cart
   | External Frame Backpack | 179.95        | 193.95      |
   | 3 Person Dome Tent      | 299.99        | 319.99      |
 
+  @maximize
   Scenario: Add multiple items to the cart and place order
     And I click on the "Padded Socks" item on the item name column
     And the product "Padded Socks" has at least 1 unit
@@ -40,15 +42,18 @@ Feature: Add items to shopping cart
     And the combined product total should be "129.89"
     And the combined grand total should be "141.38"  
 
+  @maximize
   Scenario: Place order without adding any product to the cart
     When I click the "Place An Order" button
     Then I should see a message "Please Order Something First"
 
+  @maximize
   Scenario: Add items to shopping cart and reset the form
     And I write "1" on the order quantity of "Hiking Boots"
     When I click the "Reset Form" button
     Then the order form should be cleared
 
+  @maximize
   Scenario: Place order adding more units of a product than available on stock
     And I click on the "Padded Socks" item on the item name column
     And the product "Padded Socks" has 47 units in stock
@@ -57,6 +62,7 @@ Feature: Add items to shopping cart
     And I click the "Place An Order" button
     Then I should see a message "Insufficient stock for Padded Socks"
 
+  @maximize
   Scenario Outline: Validate Sales Tax and Grand Total for different products
     When I write "<quantity>" on the order quantity of "<product_name>"
     And I click the "Place An Order" button
@@ -75,6 +81,7 @@ Feature: Add items to shopping cart
     | Hiking Boots              | 1        | 109.90        | 5.50      | 120.40      |
     | Back Country Shorts       | 1        | 24.95         | 1.25      | 31.20       |
 
+  @maximize
   Scenario: Validate Shipping & Handling charge
     When I write "<quantity>" on the order quantity of "<product_name>"
     And I click the "Place An Order" button
