@@ -1,5 +1,6 @@
 class BasePage
     include Capybara::DSL
+    include RSpec::Matchers
   
     def visit_page(url)
       visit(url)

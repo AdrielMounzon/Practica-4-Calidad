@@ -22,10 +22,6 @@ When('I write {string} on the order quantity of {string}') do |quantity, item_na
   find(:xpath, input_xpath).set(quantity)
 end
 
-When('I click the {string} button') do |button_text|
-  click_button(button_text)
-end
-
 Then('the cart should display {string} in the quantity column and {string} in the product description column') do |quantity, product_name|
   quantity_xpath = "//td[contains(text(), '#{quantity}')]"
   product_name_xpath = "//td/a/strong[contains(text(), '#{product_name}')]"
@@ -43,8 +39,8 @@ Then('the grand total should be {string}') do |grand_total|
   expect(find(:xpath, grand_total_xpath).text).to eq(grand_total)
 end
 
-When('I click the "Place An Order" button without adding any product') do
-  click_button('Place An Order')
+When('I click the {string} button without adding any product') do |expect_text|
+  click_button(expect_text)
 end
 
 Then('I should see a message "Please Order Something First"') do
@@ -61,19 +57,15 @@ And('the product "{string}" has {int} units in stock') do |item_name, stock|
   expect(stock_text.to_i).to eq(stock)
 end
 
-When('I click the "Place An Order" button') do
-  click_button('Place An Order')
+When('I click the {string} button in the cart') do |expect_text|
+  click_button(expect_text)
 end
 
 Then('I should see a message "{string}"') do |message|
   expect(page).to have_content(message)
 end
 
-When('I click the "Reset Form" button') do
-  click_button('Reset Form')
-end
-
 Then('the order form should be cleared') do
-  quantity_input_xpath = "//input[@name='QTY_BOOTS']"
+  quantity_input_xpath = "//input[@name='QTY_SOCKS']"
   expect(find(:xpath, quantity_input_xpath).value).to eq('0');
 end
