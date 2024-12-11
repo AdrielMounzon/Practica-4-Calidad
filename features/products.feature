@@ -3,6 +3,7 @@ Feature: Validate product details
   I want to see the details of a product
   So that I can get more information about the product and the available amount on the store
 
+  @maximize
   Scenario Outline: Validate product details from many products
     Given I am on the Products page
     When I scroll to the "<product_name>" section

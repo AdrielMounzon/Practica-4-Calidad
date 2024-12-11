@@ -3,6 +3,7 @@ Feature: Do de full buying process
   I want to complete a full buying process
   So that I can buy products
 
+  @maximize
   Scenario: Select items and fill in the information to complete the buy
     Given I am on the "OnLine Catalog" page
     And I click on the "Padded Socks" item on the item name column
