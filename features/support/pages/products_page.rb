@@ -6,6 +6,10 @@ class ProductsPage < BasePage
   def open
     visit_page(PRODUCTS_URL)
   end
+  
+  def current_url
+    page.current_url.split('#').first  # Esto elimina cualquier fragmento de la URL
+  end
 
   def set_product(product_name)
     @product = product_name

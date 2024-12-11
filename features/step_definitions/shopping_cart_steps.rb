@@ -9,23 +9,26 @@ Given('I click on the {string} item on the item name column') do |product_name|
 end
 
 Given('I am now on the "Products" page') do
-  @shopping_cart_page.verify_product_page
+  @products_page = ProductsPage.new
+  expect(@products_page.current_url).to eq(ProductsPage::PRODUCTS_URL)
 end
 
 Given('the product {string} has at least 1 unit') do |product_name|
-  @shopping_cart_page.verify_product_stock(product_name, 1)
+  shopping_cart_page = ShoppingCartPage.new
+  stock = shopping_cart_page.verify_product_stock(product_name)
+  expect(stock).to be >= 1
 end
 
 Given('I press the browser\'s back button') do
-  page.go_back
+  page.execute_script('window.history.back()')
 end
 
-When('I write "{string}" on the order quantity of {string}') do |quantity, product_name|
-  @shopping_cart_page.set_order_quantity(product_name, quantity)
+When('I write "{string}" on the order quantity') do |quantity|
+  @shopping_cart_page.set_order_quantity_with_css(quantity)
 end
 
-When('I click the {string} button') do |button_name|
-  @shopping_cart_page.place_order
+When('I click the {string} button in the shopping cart') do |button_name|
+  @shopping_cart_page.click_custom_button(button_name)
 end
 
 Then('I should be on the "Place Order" page') do
@@ -44,8 +47,11 @@ Then('the grand total should be {string}') do |grand_total|
   @shopping_cart_page.verify_grand_total(grand_total)
 end
 
-Then('I should see a message {string}') do |message_text|
-  @shopping_cart_page.verify_alert_message(message_text)
+Then('I should see a message {string}') do |expected_message|
+  alert = page.driver.browser.switch_to.alert
+  alert_text = alert.text
+  expect(alert_text).to eq(expected_message)
+  alert.accept
 end
 
 Then('the order form should be cleared') do

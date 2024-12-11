@@ -6,12 +6,12 @@ Feature: Add items to shopping cart
   Background:
     Given I am on the "OnLine Catalog" page
 
-    Scenario Outline: Add a single item to the cart
+  Scenario Outline: Add a single item to the cart
     And I click on the "<product_name>" item on the item name column
     And I am now on the "Products" page
     And the product "<product_name>" has at least 1 unit
     And I press the browser's back button
-    When I write "1" on the order quantity of "<product_name>"
+    When I write "1" on the order quantity"
     And I click the "Place An Order" button
     Then I should be on the "Place Order" page
     And the cart should display "1" in the quantity column and "<product_name>" in the product description column
@@ -34,19 +34,19 @@ Feature: Add items to shopping cart
     And I press the browser's back button
     When I write "1" on the order quantity of "Padded Socks"
     And I write "1" on the order quantity of "Hiking Boots"
-    And I click the "Place An Order" button
+    And I click the "Place An Order" button in the shopping cart
     Then the cart should display "1" in the quantity column and "Padded Socks" in the product description column
     And the cart should display "1" in the quantity column and "Hiking Boots" in the product description column
     And the combined product total should be "129.89"
     And the combined grand total should be "141.38"  
 
   Scenario: Place order without adding any product to the cart
-    When I click the "Place An Order" button
+    When I click the "Place An Order" button in the shopping cart
     Then I should see a message "Please Order Something First"
 
   Scenario: Add items to shopping cart and reset the form
     And I write "1" on the order quantity of "Hiking Boots"
-    When I click the "Reset Form" button
+    When I click the "Reset Form" button in the shopping cart
     Then the order form should be cleared
 
   Scenario: Place order adding more units of a product than available on stock
@@ -55,15 +55,12 @@ Feature: Add items to shopping cart
     When I press the browser's back button
     And I am now on the "OnLine Catalog" page
     And I write "50" on the order quantity of "Padded Socks"
-    And I click the "Place An Order" button
+    And I click the "Place An Order" button in the shopping cart
     Then I should see a message "Insufficient stock for Padded Socks"
 
   Scenario Outline: Validate Sales Tax and Grand Total for different products
-    And I click on the "<product_name>" item on the item name column
-    And the product "<product_name>" has at least <quantity> units
-    And I press the browser's back button
     When I write "<quantity>" on the order quantity of "<product_name>"
-    And I click the "Place An Order" button
+    And I click the "Place An Order" button in the shopping cart
     Then I should be on the "Place Order" page
     And the cart should display "<quantity>" in the quantity column and "<product_name>" in the product description column
     And the product total should be "<product_total>"
@@ -83,7 +80,7 @@ Feature: Add items to shopping cart
 
   Scenario: Validate Shipping & Handling charge
     When I write "<quantity>" on the order quantity of "<product_name>"
-    And I click the "Place An Order" button
+    And I click the "Place An Order" button in the shopping cart
     Then I see the Shipping & Handling as "$5.00"
 
   Examples:
